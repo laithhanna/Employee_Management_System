@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <!--add bootstrap css library using BootstrapCDN so that we can use css classes-->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container my-2">
+    <h1>Employees List</h1>
+
+    <!-- create a hyperlink that shows  form that allows us to add new employee. <a> defines a hyperlink-->
+    <a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3">Add employee</a>
+    <table border="1" class="table table-striped table-responsive-md"> <!-- Create a table and set a border to it-->
+        <thead> <!-- Create a table header-->
+            <tr> <!-- Create table row-->
+                <th> Employee First Name</th> <!-- Create a header cell in html table-->
+                <th> Employee Last Name</th>
+                <th> Employee Email</th>
+                <th> Actions</th>
+            </tr>
+        </thead>
+        <tbody> <!--table body-->
+            <tr th:each = "employee : ${listEmployees}"> <!-- Create table row and add thymeleaf code to it-->
+                                                         <!--We are saying that we will create a table row for each employee in listEmployees-->
+                                                         <!--Each employee row will have 3 table data cells <td> that we will get from employee object-->
+
+                <td th:text = "${employee.firstName}"></td> <!-- <td> creates a cell in a table that contains data-->
+                <td th:text = "${employee.lastName}"></td>
+                <td th:text = "${employee.email}"></td>
+                <td><a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

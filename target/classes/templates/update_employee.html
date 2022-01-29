@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+
+    <!--add bootstrap css library using BootstrapCDN so that we can use css classes-->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1> Employee Management System</h1>
+    <hr> <!--Add a horizontal line-->
+    <h2>Update Employee</h2>
+
+    <!--Create a form-->
+    <form action="#" th:action="@{/saveEmployee}" th:object="${employee}" method="post">
+        <!-- *{} in th:field means that we will refer to attributes in the employee object-->
+
+        <!--Add hidden form field to handle update-->
+        <input type="hidden" th:field="*{id}">
+
+        <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{lastName}"  class="form-control mb-4 col-4">
+        <input type="text" th:field="*{email}" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Update Employee</button>
+    </form>
+
+    <hr>
+    <a th:href="@{/}">Back to Employee List</a>
+</div>
+</body>
+</html>
