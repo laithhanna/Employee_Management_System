@@ -1,9 +1,9 @@
 # Employee Management System
-This is a Spring Boot CRUD web application with Thymeleaf/HTML 5, Spring MVC, Spring Data JPA, Hibernate and MySQL
+This is a Spring Boot CRUD web application created using Spring Boot, Spring Data JPA, Hibernate, MySQL, Thymeleaf, HTML 5, and Bootstrap
 
 Technologies used:
 ```
-  Backend : Java using Spring Boot, including Spring MVC, Spring Data JPA, Hibernate
+  Backend : Spring Boot, Spring Data JPA, Hibernate, MySQL
   Front end: Thymeleaf, HTML 5, Bootstrap
   Relational Database Management System (RDBMS): MySQL
   ```
@@ -11,6 +11,7 @@ Technologies used:
 
 * Created an employee management web service with Spring boot, HTML 5 and MySQL
 * Users are able to Create/store, retrieve, update, and delete employees
+* The employees records are spread out through different pages, where each page holds 5 records to facilitate navigation through the records
 * The backend is composed of 3 layers: Controller layer, Service layer and the Repository layer
 
 
