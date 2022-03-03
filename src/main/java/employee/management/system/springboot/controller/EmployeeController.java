@@ -3,12 +3,15 @@ package employee.management.system.springboot.controller;
 import employee.management.system.springboot.model.Employee;
 import employee.management.system.springboot.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 @Controller
 public class EmployeeController {
@@ -20,9 +23,12 @@ public class EmployeeController {
     //Since we want to supply a list of employees to the view layer, we need to use Model parameter in the method
     @GetMapping("/")
     public String viewHomePage(Model model) {
-        //add data to the model
-        model.addAttribute("listEmployees", employeeService.getAllEmployees());
-        return "index"; //return the name of the html page that we will show (in this case index.html). No need to put .html, it is implied.
+//        //add data to the model
+//        model.addAttribute("listEmployees", employeeService.getAllEmployees());
+//        return "index"; //return the name of the html page that we will show (in this case index.html).
+
+        //display a list of paginated employees.
+        return findPaginated(1, model); //1 is the default page number
     }
 
     /*
@@ -66,5 +72,25 @@ public class EmployeeController {
         //call delete method from the service layer
         employeeService.deleteEmployeeById(id);
         return "redirect:/";
+    }
+
+    //create a method to handle pagination
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable(value = "pageNo") int pageNo, Model model) {
+        int pageSize = 5;//you can pick any number you want. I want five rows in each page
+
+        Page<Employee> page = employeeService.findPaginated(pageNo, pageSize);
+        //get a list of employees from the page object
+        List<Employee> listEmployees = page.getContent(); //now we have a list of employees which are paginated
+        //Note that the page object provide a getContent method to get a list of the content of the page. Employees in our case.
+        //Next, we want to return this information to the UI. AKA bind the data to the model
+
+        model.addAttribute("currentPageNo", pageNo);
+        model.addAttribute("totalPages", page.getTotalPages());//page object provides a method to get the total pages#
+        model.addAttribute("totalItems", page.getTotalElements()); //age object provides a method to get the
+                                                                              //total number of rows in the page
+        model.addAttribute("listEmployees", listEmployees);
+        return "index";
+        //fix the viewHomePae method to display a list of paginated employees
     }
 }

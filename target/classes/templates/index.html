@@ -38,6 +38,22 @@
             </tr>
         </tbody>
     </table>
+    <!--add pagination-->
+    <!--If the total pages > 1 then we will show the pagination part aka this div will be shown-->
+    <div th:if = "${totalPages > 1}">
+        <div class="row col-sm-10">
+            <div class="col-sm-2">
+                Total Rows: [[${totalItems}]]<!--Display total rows-->
+            </div>
+            <div class="col-sm-1">
+                <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+                    <a th:if="${currentPageNo != i}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+                    <span th:unless="${currentPageNo != i}">[[${i}]]</span> &nbsp; &nbsp;
+                </span>
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
